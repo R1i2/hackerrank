@@ -36,14 +36,16 @@ def countingValleys(steps, path):
         steps = steps+1 if path[i]=="U" else steps-1;
         if (i!=0):
             stepTravel = "Hill" if path[i-1]=="U" else "Valley"
-        if(steps==maxAlt and (prevTravel=="" or prevTravel=="Valley" or stepTravel=="Valley")):
+        if(steps==maxAlt and (prevTravel=="" or prevTravel=="Valley" or (stepTravel=="Valley" and equalizer))):
             n_h_travel = n_h_travel+1
             prevTravel = "Hill"
-        elif(steps==minAlt and (prevTravel=="" or prevTravel=="Hill" or stepTravel=="Hill")):
+            equalizer = False;
+        elif(steps==minAlt and (prevTravel=="" or prevTravel=="Hill" or (stepTravel=="Hill" and equalizer))):
             n_v_travel= n_v_travel+1
-            prevTravel = "Valley"
-        else:
-            None
+            prevTravel = "Valley";
+            equalizer = False;
+        elif(steps==0):
+            equalizer=True;
     return n_v_travel; 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
