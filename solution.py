@@ -17,36 +17,27 @@ import sys
 
 def countingValleys(steps, path):
     # Write your code here
-    steps = 0;
-    maxAlt = 0;
-    minAlt = 0;
-    for i in range(len(path)):
-        if(path[i]=="U"):
-            steps+=1
-            maxAlt = steps if steps>maxAlt else maxAlt;
+    levels = 0;
+    valleys = 0;
+    for i in path:
+        if(i=="U"):
+            levels+=1
+            if(levels==0):
+                valleys+=1
         else:
-            steps-=1;
-            minAlt = steps if steps<minAlt else minAlt;
-    n_h_travel = 0
-    n_v_travel = 0
-    steps = 0
-    equalizer = True;
-    prevTravel = ""
-    for i in range(len(path)):
-        steps = steps+1 if path[i]=="U" else steps-1;
-        if (i!=0):
-            stepTravel = "Hill" if path[i-1]=="U" else "Valley"
-        if(steps==maxAlt and (prevTravel=="" or prevTravel=="Valley" or (stepTravel=="Valley" and equalizer))):
-            n_h_travel = n_h_travel+1
-            prevTravel = "Hill"
-            equalizer = False;
-        elif(steps==minAlt and (prevTravel=="" or prevTravel=="Hill" or (stepTravel=="Hill" and equalizer))):
-            n_v_travel= n_v_travel+1
-            prevTravel = "Valley";
-            equalizer = False;
-        elif(steps==0):
-            equalizer=True;
-    return n_v_travel; 
+            levels-=1;
+    return valleys;
+def countingHills(steps,path):
+    levels=0
+    hills=0
+    for i in path:
+        if(i=="D"):
+            levels-=1
+            if(levels==0):
+                hills+=1
+        else:
+            levels+=1
+    return hills;
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
