@@ -33,7 +33,9 @@ def countingValleys(steps, path):
     equalizer = True;
     prevTravel = ""
     for i in range(len(path)):
-        [steps,stepTravel] = [steps+1,"Hill"] if path[i]=="U" else [steps-1,"Valley"];
+        steps = steps+1 if path[i]=="U" else steps-1;
+        if (i!=0):
+            stepTravel = "Hill" if path[i-1]=="U" else "Valley"
         if(steps==maxAlt and (prevTravel=="" or prevTravel=="Valley" or stepTravel=="Valley")):
             n_h_travel = n_h_travel+1
             prevTravel = "Hill"
